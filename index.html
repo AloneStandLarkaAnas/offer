@@ -107,6 +107,7 @@
         <input type="text" id="senderName" placeholder="Enter sender name">
         <button onclick="submitOrder()">Submit Order</button>
     </div>
+
     <script>
     let userName = '';
     let selectedFakeOption = '';
@@ -217,14 +218,9 @@
         const encodedMessage = encodeURIComponent(message);
 
         // Construct the WhatsApp URL
-        const whatsappUrl = `https://wa.me/03058483535?text=${encodedMessage}`;
-
-        // Open the WhatsApp link
+        const whatsappUrl = `https://wa.me/923058483535?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
-
-        alert("Your order has been successfully submitted!");
     }
-</script>
-
+    </script>
 </body>
 </html>
