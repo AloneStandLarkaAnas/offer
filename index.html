@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Order Sender</title>
+    <title>Social Media Services</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
             font-size: 24px;
             color: #fff;
         }
-        input, select, button {
+        select, input, button {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
@@ -33,7 +33,7 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        input, select {
+        select, input {
             background: rgba(255, 255, 255, 0.2);
             color: white;
         }
@@ -55,40 +55,45 @@
     </style>
 </head>
 <body>
-    <h1>Order Sender to WhatsApp</h1>
+    <h1>Order Social Media Services</h1>
     <div class="container">
         <input type="text" id="userName" placeholder="Enter your name">
-        <select id="fakeOption" onchange="updatePrice()">
+        <select id="fakeOption">
             <option value="0">Choose Fake Number Option</option>
             <option value="80">Pak Fake Number (80 PKR)</option>
             <option value="100">International Fake Number (100 PKR)</option>
         </select>
-        <select id="socialMediaService" onchange="updatePrice()">
+        <select id="socialMediaService">
             <option value="0">Choose Social Media Service</option>
             <option value="10">TikTok (10 PKR per service)</option>
             <option value="15">YouTube (15 PKR per service)</option>
+            <option value="20">Facebook (20 PKR per service)</option>
+            <option value="25">Instagram (25 PKR per service)</option>
+            <option value="30">Twitter (30 PKR per service)</option>
+            <option value="35">Snapchat (35 PKR per service)</option>
+            <option value="40">WhatsApp (40 PKR per service)</option>
         </select>
-        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)" oninput="updatePrice()">
+        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
         <div class="price">Total Price: <span id="totalPrice">0</span> PKR</div>
         <button onclick="sendToWhatsApp()">Send to WhatsApp</button>
     </div>
 
     <script>
         function updatePrice() {
-            // Get selected options and quantity
-            const fakeOptionPrice = parseInt(document.getElementById('fakeOption').value);
-            const socialMediaPrice = parseInt(document.getElementById('socialMediaService').value);
+            const fakeOptionPrice = parseInt(document.getElementById('fakeOption').value) || 0;
+            const socialMediaPrice = parseInt(document.getElementById('socialMediaService').value) || 0;
             const quantity = parseInt(document.getElementById('quantity').value) || 0;
 
-            // Calculate total price
             const totalPrice = (fakeOptionPrice + socialMediaPrice) * quantity;
 
-            // Update total price on the page
             document.getElementById('totalPrice').textContent = totalPrice;
         }
 
+        document.getElementById('fakeOption').addEventListener('change', updatePrice);
+        document.getElementById('socialMediaService').addEventListener('change', updatePrice);
+        document.getElementById('quantity').addEventListener('input', updatePrice);
+
         function sendToWhatsApp() {
-            // Collect user inputs
             const userName = document.getElementById('userName').value;
             const fakeOption = document.getElementById('fakeOption');
             const fakeOptionText = fakeOption.options[fakeOption.selectedIndex].text;
@@ -97,13 +102,11 @@
             const quantity = document.getElementById('quantity').value;
             const totalPrice = document.getElementById('totalPrice').textContent;
 
-            // Validate inputs
             if (!userName || fakeOption.value === "0" || socialMediaService.value === "0" || !quantity) {
                 alert("Please fill in all fields before sending.");
                 return;
             }
 
-            // Prepare message
             const message = `
                 Name: ${userName}
                 Fake Number Option: ${fakeOptionText}
@@ -112,16 +115,10 @@
                 Total Price: ${totalPrice} PKR
             `;
 
-            // Encode message for WhatsApp URL
             const encodedMessage = encodeURIComponent(message);
-
-            // WhatsApp number
             const whatsappNumber = "+923058483535";
-
-            // Construct WhatsApp URL
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-            // Open WhatsApp URL in a new tab
             window.open(whatsappUrl, '_blank');
         }
     </script>
