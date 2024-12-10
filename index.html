@@ -9,29 +9,44 @@
             margin: 0;
             padding: 0;
             font-family: "Arial", sans-serif;
-            background: linear-gradient(to right, #b2d8f8, #f0f9ff); /* Light blue gradient */
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Stylish gradient */
             color: #333;
             text-align: center;
         }
 
         .offer-container {
             margin: 20px auto;
-            padding: 20px;
+            padding: 30px;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             max-width: 600px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
         h1 {
-            color: #2980b9; /* Blue color for headings */
+            color: #ffffff; /* White color for headings */
             margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 32px;
         }
 
         h2 {
-            color: #3498db;
+            color: #f0f0f0;
             margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .offer-highlight {
+            background: linear-gradient(to right, #85c1e9, #2980b9);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px auto;
+            font-size: 18px;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         input, select, button {
@@ -44,6 +59,7 @@
             border-radius: 8px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
         }
 
         input:hover, select:hover {
@@ -65,24 +81,34 @@
             transform: scale(1.05);
         }
 
-        .offer-highlight {
-            background: linear-gradient(to right, #85c1e9, #2980b9);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px auto;
-            font-size: 16px;
-        }
-
         .offer-footer {
             margin-top: 20px;
             font-size: 14px;
             color: #777;
         }
+
+        .toggle-btn {
+            margin: 20px;
+            padding: 10px 20px;
+            background: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #3498db;
+        }
     </style>
 </head>
 <body>
-    <div class="offer-container">
+
+    <button class="toggle-btn" onclick="toggleForm()">Show Offer Form</button>
+
+    <div class="offer-container" id="offerForm">
         <h1>Exclusive Offer!</h1>
         <h2>Grab Your Deals Now</h2>
         <p class="offer-highlight">Special prices for Fake Numbers and Social Media Services!</p>
@@ -105,6 +131,19 @@
     </div>
 
     <script>
+        // Toggle form visibility with show/hide effect
+        function toggleForm() {
+            const form = document.getElementById("offerForm");
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                setTimeout(() => form.style.opacity = 1, 50); // Delay opacity for smooth transition
+            } else {
+                form.style.opacity = 0;
+                setTimeout(() => form.style.display = "none", 500); // Hide after fade-out effect
+            }
+        }
+
+        // WhatsApp message generation
         function generateWhatsAppLink() {
             const userName = document.getElementById("userName").value;
             const fakeOption = document.getElementById("fakeOption").value;
@@ -136,5 +175,6 @@
             alert("Please manually upload the screenshot on WhatsApp after sending the message.");
         }
     </script>
+
 </body>
 </html>
