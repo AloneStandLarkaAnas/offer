@@ -3,224 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offer Page</title>
+    <title>WhatsApp Data Sender</title>
     <style>
         body {
-            font-family: "Comic Sans MS", sans-serif;
-            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
             color: white;
             text-align: center;
-            margin: 0;
-            padding: 0;
-            animation: backgroundColorChange 6s infinite alternate;
-        }
-        @keyframes backgroundColorChange {
-            0% { background-color: #00c6ff; }
-            100% { background-color: #0072ff; }
+            padding: 20px;
         }
         .box {
             margin: 20px auto;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-        button {
-            background: linear-gradient(90deg, #f093fb, #f5576c);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-        input, select {
-            width: 90%;
+        input, select, button {
+            width: 80%;
             padding: 10px;
-            margin: 10px auto;
+            margin: 10px 0;
             border: none;
             border-radius: 5px;
             font-size: 16px;
+        }
+        input, select {
             background: rgba(255, 255, 255, 0.2);
             color: white;
         }
-        input::placeholder, select {
-            color: rgba(255, 255, 255, 0.6);
+        button {
+            background: #ff7f50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        h1, h2, h3 {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        button:hover {
+            background: #ff6347;
+            transform: scale(1.05);
         }
-        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div id="startOffer" class="box">
-        <h1>🌟 Special Offer 🌟</h1>
-        <button onclick="showNameInput()">Start Offer</button>
-    </div>
-
-    <div id="nameInput" class="box hidden">
-        <h2>Enter Your Name</h2>
+    <h1>WhatsApp Data Sender</h1>
+    <div class="box">
+        <h2>Enter Your Details</h2>
         <input type="text" id="userName" placeholder="Enter your name">
-        <button onclick="saveName()">Next</button>
-    </div>
-
-    <div id="fakeNumber" class="box hidden">
-        <h2>Choose Fake Number Option</h2>
         <select id="fakeOption">
-            <option value="None">None</option>
+            <option value="None">Choose Fake Number Option</option>
             <option value="Pak Fake Number">Pak Fake Number (80 PKR)</option>
         </select>
-        <button onclick="showSocialMedia()">Next</button>
-    </div>
-
-    <div id="socialMedia" class="box hidden">
-        <h2>Select Social Media Service</h2>
-        <select id="socialMediaService" onchange="showSubServices()">
-            <option value="">Select</option>
+        <select id="socialMediaService">
+            <option value="">Choose Social Media Service</option>
             <option value="TikTok">TikTok</option>
             <option value="YouTube">YouTube</option>
         </select>
-    </div>
-
-    <div id="subServices" class="box hidden">
-        <h2>Choose Sub-Service</h2>
-        <select id="subServiceOptions"></select>
-        <input type="number" id="quantity" placeholder="Enter quantity (e.g., 1000)">
-        <button onclick="generateReceipt()">Generate Receipt</button>
-    </div>
-
-    <div id="receipt" class="box hidden">
-        <h2>🎉 Payment Receipt 🎉</h2>
-        <div id="receiptContent"></div>
-        <h3>💳 Payment Instructions</h3>
-        <p>Send payment to Easypaisa: <strong>03058483535</strong></p>
-        <p>Upload a screenshot of the payment:</p>
-        <input type="file" id="screenshotUpload">
-        <input type="text" id="trxId" placeholder="Enter transaction ID">
-        <input type="text" id="senderName" placeholder="Enter sender name">
-        <button onclick="submitOrder()">Submit Order</button>
+        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
+        <button onclick="sendToWhatsApp()">Send to WhatsApp</button>
     </div>
 
     <script>
-    let userName = '';
-    let selectedFakeOption = '';
-    let selectedSocialMedia = '';
-    let selectedSubService = '';
-    let quantity = 0;
+        function sendToWhatsApp() {
+            // Collect user inputs
+            const userName = document.getElementById('userName').value;
+            const fakeOption = document.getElementById('fakeOption').value;
+            const socialMediaService = document.getElementById('socialMediaService').value;
+            const quantity = document.getElementById('quantity').value;
 
-    const servicePrices = {
-        "Pak Fake Number": 80,
-        "TikTok Likes": 80,
-        "TikTok Views": 10,
-        "TikTok Followers": 400,
-        "YouTube Subscribers": 540,
-        "YouTube Views": 370,
-        "YouTube Likes": 120
-    };
+            // Validate inputs
+            if (!userName || !fakeOption || !socialMediaService || !quantity) {
+                alert("Please fill in all fields before sending.");
+                return;
+            }
 
-    function showNameInput() {
-        document.getElementById('startOffer').classList.add('hidden');
-        document.getElementById('nameInput').classList.remove('hidden');
-    }
-
-    function saveName() {
-        userName = document.getElementById('userName').value;
-        if (userName) {
-            document.getElementById('nameInput').classList.add('hidden');
-            document.getElementById('fakeNumber').classList.remove('hidden');
-        } else {
-            alert("Please enter your name.");
-        }
-    }
-
-    function showSocialMedia() {
-        selectedFakeOption = document.getElementById('fakeOption').value;
-        document.getElementById('fakeNumber').classList.add('hidden');
-        document.getElementById('socialMedia').classList.remove('hidden');
-    }
-
-    function showSubServices() {
-        selectedSocialMedia = document.getElementById('socialMediaService').value;
-        const subServiceOptions = document.getElementById('subServiceOptions');
-        subServiceOptions.innerHTML = '';
-
-        if (selectedSocialMedia === "TikTok") {
-            subServiceOptions.innerHTML = `
-                <option value="TikTok Likes">TikTok Likes</option>
-                <option value="TikTok Views">TikTok Views</option>
-                <option value="TikTok Followers">TikTok Followers</option>
+            // Prepare message
+            const message = `
+                Name: ${userName}
+                Fake Number Option: ${fakeOption}
+                Social Media Service: ${socialMediaService}
+                Quantity: ${quantity}
             `;
-        } else if (selectedSocialMedia === "YouTube") {
-            subServiceOptions.innerHTML = `
-                <option value="YouTube Subscribers">YouTube Subscribers</option>
-                <option value="YouTube Views">YouTube Views</option>
-                <option value="YouTube Likes">YouTube Likes</option>
-            `;
+
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // WhatsApp number
+            const whatsappNumber = "+923058483535";
+
+            // Construct WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp URL in a new tab
+            window.open(whatsappUrl, '_blank');
         }
-        document.getElementById('subServices').classList.remove('hidden');
-    }
-
-    function generateReceipt() {
-        selectedSubService = document.getElementById('subServiceOptions').value;
-        quantity = parseInt(document.getElementById('quantity').value);
-        let total = 0;
-
-        if (selectedFakeOption === "Pak Fake Number") {
-            total += servicePrices[selectedFakeOption];
-        }
-
-        if (selectedSubService && quantity) {
-            const pricePerUnit = servicePrices[selectedSubService] / 1000;
-            total += pricePerUnit * quantity;
-        }
-
-        const receiptContent = `
-            Name: ${userName}
-            Fake Number: ${selectedFakeOption}
-            Service: ${selectedSubService}
-            Quantity: ${quantity}
-            Total Price: ${total.toFixed(2)} PKR
-        `;
-        document.getElementById('receiptContent').innerText = receiptContent;
-        document.getElementById('subServices').classList.add('hidden');
-        document.getElementById('receipt').classList.remove('hidden');
-    }
-
-    function submitOrder() {
-        const trxId = document.getElementById('trxId').value;
-        const senderName = document.getElementById('senderName').value;
-        const screenshot = document.getElementById('screenshotUpload').files[0];
-
-        if (!trxId || !senderName || !screenshot) {
-            alert("Please complete all fields.");
-            return;
-        }
-
-        // Construct the message
-        const message = `
-            Name: ${userName}
-            Fake Number: ${selectedFakeOption}
-            Service: ${selectedSubService}
-            Quantity: ${quantity}
-            Total Price: ${total.toFixed(2)} PKR
-            Transaction ID: ${trxId}
-            Sender Name: ${senderName}
-        `;
-
-        // Encode the message for URL
-        const encodedMessage = encodeURIComponent(message);
-
-        // Construct the WhatsApp URL
-        const whatsappUrl = `https://wa.me/923058483535?text=${encodedMessage}`;
-        window.open(whatsappUrl, '_blank');
-    }
     </script>
 </body>
 </html>
