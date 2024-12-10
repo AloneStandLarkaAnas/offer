@@ -6,47 +6,45 @@
     <title>Exclusive Offer</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Stylish gradient */
             margin: 0;
             padding: 0;
-            font-family: "Arial", sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Stylish gradient */
             color: #333;
             text-align: center;
         }
 
-        .offer-container {
+        h1 {
+            color: white;
+            font-size: 36px;
+            margin: 20px 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
             margin: 20px auto;
-            padding: 30px;
             background: white;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            display: none;
             opacity: 0;
+            display: none;
             transition: opacity 0.5s ease-in-out;
         }
 
-        h1 {
-            color: #ffffff; /* White color for headings */
-            margin-bottom: 10px;
-            font-size: 32px;
+        .container.active {
+            display: block;
+            opacity: 1;
         }
 
-        h2 {
-            color: #f0f0f0;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .offer-highlight {
+        .highlight {
             background: linear-gradient(to right, #85c1e9, #2980b9);
             color: white;
             padding: 12px;
-            border-radius: 8px;
-            margin: 10px auto;
             font-size: 18px;
-            width: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+            border-radius: 8px;
         }
 
         input, select, button {
@@ -58,7 +56,6 @@
             font-size: 16px;
             border-radius: 8px;
             border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: 0.3s ease;
         }
 
@@ -81,66 +78,92 @@
             transform: scale(1.05);
         }
 
-        .offer-footer {
+        .footer {
             margin-top: 20px;
             font-size: 14px;
             color: #777;
         }
 
-        .toggle-btn {
-            margin: 20px;
-            padding: 10px 20px;
+        .next-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
             background: #2980b9;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 18px;
-            transition: 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .toggle-btn:hover {
+        .next-btn:hover {
             background: #3498db;
         }
     </style>
 </head>
 <body>
 
-    <button class="toggle-btn" onclick="toggleForm()">Show Offer Form</button>
+    <h1>Exclusive Offer</h1>
 
-    <div class="offer-container" id="offerForm">
-        <h1>Exclusive Offer!</h1>
-        <h2>Grab Your Deals Now</h2>
-        <p class="offer-highlight">Special prices for Fake Numbers and Social Media Services!</p>
+    <!-- First Section -->
+    <div class="container" id="section1">
+        <p class="highlight">Get special prices for Fake Numbers and Social Media Services!</p>
+        <button class="next-btn" onclick="showSection(2)">Next</button>
+    </div>
 
+    <!-- Second Section -->
+    <div class="container" id="section2">
         <input type="text" id="userName" placeholder="Enter Your Name">
+        <button class="next-btn" onclick="showSection(3)">Next</button>
+    </div>
+
+    <!-- Third Section -->
+    <div class="container" id="section3">
         <select id="fakeOption">
             <option value="None">No Fake Number</option>
             <option value="Pak Fake Number">Pak Fake Number</option>
         </select>
+        <button class="next-btn" onclick="showSection(4)">Next</button>
+    </div>
+
+    <!-- Fourth Section -->
+    <div class="container" id="section4">
         <select id="socialMediaService">
             <option value="">Select Social Media Service</option>
             <option value="TikTok">TikTok</option>
             <option value="YouTube">YouTube</option>
         </select>
-        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
-        <input type="file" id="screenshotUpload" accept="image/*">
-        <button onclick="generateWhatsAppLink()">Submit Order</button>
+        <button class="next-btn" onclick="showSection(5)">Next</button>
+    </div>
 
-        <p class="offer-footer">Limited time offers! Make your payment now and claim your order.</p>
+    <!-- Fifth Section -->
+    <div class="container" id="section5">
+        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
+        <button class="next-btn" onclick="showSection(6)">Next</button>
+    </div>
+
+    <!-- Sixth Section -->
+    <div class="container" id="section6">
+        <input type="file" id="screenshotUpload" accept="image/*">
+        <button class="next-btn" onclick="generateWhatsAppLink()">Submit Order</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Limited time offers! Make your payment now and claim your order.</p>
     </div>
 
     <script>
-        // Toggle form visibility with show/hide effect
-        function toggleForm() {
-            const form = document.getElementById("offerForm");
-            if (form.style.display === "none" || form.style.display === "") {
-                form.style.display = "block";
-                setTimeout(() => form.style.opacity = 1, 50); // Delay opacity for smooth transition
-            } else {
-                form.style.opacity = 0;
-                setTimeout(() => form.style.display = "none", 500); // Hide after fade-out effect
-            }
+        // Show/hide sections function
+        function showSection(sectionNumber) {
+            const sections = document.querySelectorAll('.container');
+            sections.forEach((section, index) => {
+                if (index === sectionNumber - 1) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
         }
 
         // WhatsApp message generation
@@ -174,6 +197,9 @@
             // Allow the user to manually upload the screenshot
             alert("Please manually upload the screenshot on WhatsApp after sending the message.");
         }
+
+        // Initialize by showing the first section
+        showSection(1);
     </script>
 
 </body>
