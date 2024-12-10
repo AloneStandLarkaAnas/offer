@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Offer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", sans-serif;
+            background: linear-gradient(to right, #b2d8f8, #f0f9ff); /* Light blue gradient */
+            color: #333;
+            text-align: center;
+        }
+
+        .offer-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #2980b9; /* Blue color for headings */
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        input, select, button {
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin: 15px auto;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:hover, select:hover {
+            border-color: #3498db;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .offer-highlight {
+            background: linear-gradient(to right, #85c1e9, #2980b9);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px auto;
+            font-size: 16px;
+        }
+
+        .offer-footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="offer-container">
+        <h1>Exclusive Offer!</h1>
+        <h2>Grab Your Deals Now</h2>
+        <p class="offer-highlight">Special prices for Fake Numbers and Social Media Services!</p>
+
+        <input type="text" id="userName" placeholder="Enter Your Name">
+        <select id="fakeOption">
+            <option value="None">No Fake Number</option>
+            <option value="Pak Fake Number">Pak Fake Number</option>
+        </select>
+        <select id="socialMediaService">
+            <option value="">Select Social Media Service</option>
+            <option value="TikTok">TikTok</option>
+            <option value="YouTube">YouTube</option>
+        </select>
+        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
+        <input type="file" id="screenshotUpload" accept="image/*">
+        <button onclick="generateWhatsAppLink()">Submit Order</button>
+
+        <p class="offer-footer">Limited time offers! Make your payment now and claim your order.</p>
+    </div>
+
+    <script>
+        function generateWhatsAppLink() {
+            const userName = document.getElementById("userName").value;
+            const fakeOption = document.getElementById("fakeOption").value;
+            const socialMediaService = document.getElementById("socialMediaService").value;
+            const quantity = document.getElementById("quantity").value;
+            const screenshot = document.getElementById("screenshotUpload").files[0];
+
+            if (!userName || !socialMediaService || !quantity) {
+                alert("Please fill in all the required fields.");
+                return;
+            }
+
+            let message = `🔹 **New Order Received** 🔹\n\n`;
+            message += `👤 Name: ${userName}\n`;
+            message += `📱 Fake Number: ${fakeOption}\n`;
+            message += `📲 Service: ${socialMediaService}\n`;
+            message += `🔢 Quantity: ${quantity}\n`;
+
+            // Encode message for URL
+            message = encodeURIComponent(message);
+
+            // WhatsApp link
+            const whatsappLink = `https://wa.me/03058483535?text=${message}`;
+            
+            // Open WhatsApp with pre-filled message
+            window.open(whatsappLink, "_blank");
+            
+            // Allow the user to manually upload the screenshot
+            alert("Please manually upload the screenshot on WhatsApp after sending the message.");
+        }
+    </script>
+</body>
+</html>
