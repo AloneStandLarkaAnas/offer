@@ -3,204 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exclusive Offer</title>
+    <title>Offer Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Stylish gradient */
+            font-family: "Comic Sans MS", sans-serif;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            text-align: center;
             margin: 0;
             padding: 0;
-            color: #333;
-            text-align: center;
+            animation: backgroundColorChange 6s infinite alternate;
         }
-
-        h1 {
-            color: white;
-            font-size: 36px;
-            margin: 20px 0;
+        @keyframes backgroundColorChange {
+            0% { background-color: #00c6ff; }
+            100% { background-color: #0072ff; }
         }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
+        .box {
             margin: 20px auto;
-            background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            display: none;
-            transition: opacity 0.5s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
         }
-
-        .container.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .highlight {
-            background: linear-gradient(to right, #85c1e9, #2980b9);
-            color: white;
-            padding: 12px;
-            font-size: 18px;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-
-        input, select, button {
-            display: block;
-            width: 80%;
-            max-width: 400px;
-            margin: 15px auto;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            transition: 0.3s ease;
-        }
-
-        input:hover, select:hover {
-            border-color: #3498db;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
-        }
-
         button {
-            background: #3498db;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
             color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #2980b9;
-            transform: scale(1.05);
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777;
-        }
-
-        .next-btn {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #2980b9;
-            color: white;
-            border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
-        .next-btn:hover {
-            background: #3498db;
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        input::placeholder, select {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        h1, h2, h3 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-
-    <h1>Exclusive Offer</h1>
-
-    <!-- First Section -->
-    <div class="container" id="section1">
-        <p class="highlight">Get special prices for Fake Numbers and Social Media Services!</p>
-        <button class="next-btn" onclick="showSection(2)">Next</button>
+    <div id="startOffer" class="box">
+        <h1>🌟 Special Offer 🌟</h1>
+        <button onclick="showNameInput()">Start Offer</button>
     </div>
 
-    <!-- Second Section -->
-    <div class="container" id="section2">
-        <input type="text" id="userName" placeholder="Enter Your Name">
-        <button class="next-btn" onclick="showSection(3)">Next</button>
+    <div id="nameInput" class="box hidden">
+        <h2>Enter Your Name</h2>
+        <input type="text" id="userName" placeholder="Enter your name">
+        <button onclick="saveName()">Next</button>
     </div>
 
-    <!-- Third Section -->
-    <div class="container" id="section3">
+    <div id="fakeNumber" class="box hidden">
+        <h2>Choose Fake Number Option</h2>
         <select id="fakeOption">
-            <option value="None">No Fake Number</option>
-            <option value="Pak Fake Number">Pak Fake Number</option>
+            <option value="None">None</option>
+            <option value="Pak Fake Number">Pak Fake Number (80 PKR)</option>
         </select>
-        <button class="next-btn" onclick="showSection(4)">Next</button>
+        <button onclick="showSocialMedia()">Next</button>
     </div>
 
-    <!-- Fourth Section -->
-    <div class="container" id="section4">
-        <select id="socialMediaService">
-            <option value="">Select Social Media Service</option>
+    <div id="socialMedia" class="box hidden">
+        <h2>Select Social Media Service</h2>
+        <select id="socialMediaService" onchange="showSubServices()">
+            <option value="">Select</option>
             <option value="TikTok">TikTok</option>
             <option value="YouTube">YouTube</option>
         </select>
-        <button class="next-btn" onclick="showSection(5)">Next</button>
     </div>
 
-    <!-- Fifth Section -->
-    <div class="container" id="section5">
-        <input type="number" id="quantity" placeholder="Enter Quantity (e.g., 1000)">
-        <button class="next-btn" onclick="showSection(6)">Next</button>
+    <div id="subServices" class="box hidden">
+        <h2>Choose Sub-Service</h2>
+        <select id="subServiceOptions"></select>
+        <input type="number" id="quantity" placeholder="Enter quantity (e.g., 1000)">
+        <button onclick="generateReceipt()">Generate Receipt</button>
     </div>
 
-    <!-- Sixth Section -->
-    <div class="container" id="section6">
-        <input type="file" id="screenshotUpload" accept="image/*">
-        <button class="next-btn" onclick="generateWhatsAppLink()">Submit Order</button>
+    <div id="receipt" class="box hidden">
+        <h2>🎉 Payment Receipt 🎉</h2>
+        <div id="receiptContent"></div>
+        <h3>💳 Payment Instructions</h3>
+        <p>Send payment to Easypaisa: <strong>03058483535</strong></p>
+        <p>Upload a screenshot of the payment:</p>
+        <input type="file" id="screenshotUpload">
+        <input type="text" id="trxId" placeholder="Enter transaction ID">
+        <input type="text" id="senderName" placeholder="Enter sender name">
+        <button onclick="submitOrder()">Submit Order</button>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>Limited time offers! Make your payment now and claim your order.</p>
-    </div>
+   <script>
+    let userName = '';
+    let selectedFakeOption = '';
+    let selectedSocialMedia = '';
+    let selectedSubService = '';
+    let quantity = 0;
 
-    <script>
-        // Show/hide sections function
-        function showSection(sectionNumber) {
-            const sections = document.querySelectorAll('.container');
-            sections.forEach((section, index) => {
-                if (index === sectionNumber - 1) {
-                    section.classList.add('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
+    const servicePrices = {
+        "Pak Fake Number": 80,
+        "TikTok Likes": 80,
+        "TikTok Views": 10,
+        "TikTok Followers": 400,
+        "YouTube Subscribers": 540,
+        "YouTube Views": 370,
+        "YouTube Likes": 120
+    };
+
+    function showNameInput() {
+        document.getElementById('startOffer').classList.add('hidden');
+        document.getElementById('nameInput').classList.remove('hidden');
+    }
+
+    function saveName() {
+        userName = document.getElementById('userName').value;
+        if (userName) {
+            document.getElementById('nameInput').classList.add('hidden');
+            document.getElementById('fakeNumber').classList.remove('hidden');
+        } else {
+            alert("Please enter your name.");
+        }
+    }
+
+    function showSocialMedia() {
+        selectedFakeOption = document.getElementById('fakeOption').value;
+        document.getElementById('fakeNumber').classList.add('hidden');
+        document.getElementById('socialMedia').classList.remove('hidden');
+    }
+
+    function showSubServices() {
+        selectedSocialMedia = document.getElementById('socialMediaService').value;
+        const subServiceOptions = document.getElementById('subServiceOptions');
+        subServiceOptions.innerHTML = '';
+
+        if (selectedSocialMedia === "TikTok") {
+            subServiceOptions.innerHTML = `
+                <option value="TikTok Likes">TikTok Likes</option>
+                <option value="TikTok Views">TikTok Views</option>
+                <option value="TikTok Followers">TikTok Followers</option>
+            `;
+        } else if (selectedSocialMedia === "YouTube") {
+            subServiceOptions.innerHTML = `
+                <option value="YouTube Subscribers">YouTube Subscribers</option>
+                <option value="YouTube Views">YouTube Views</option>
+                <option value="YouTube Likes">YouTube Likes</option>
+            `;
+        }
+        document.getElementById('subServices').classList.remove('hidden');
+    }
+
+    function generateReceipt() {
+        selectedSubService = document.getElementById('subServiceOptions').value;
+        quantity = parseInt(document.getElementById('quantity').value);
+        let total = 0;
+
+        if (selectedFakeOption === "Pak Fake Number") {
+            total += servicePrices[selectedFakeOption];
         }
 
-        // WhatsApp message generation
-        function generateWhatsAppLink() {
-            const userName = document.getElementById("userName").value;
-            const fakeOption = document.getElementById("fakeOption").value;
-            const socialMediaService = document.getElementById("socialMediaService").value;
-            const quantity = document.getElementById("quantity").value;
-            const screenshot = document.getElementById("screenshotUpload").files[0];
-
-            if (!userName || !socialMediaService || !quantity) {
-                alert("Please fill in all the required fields.");
-                return;
-            }
-
-            let message = `🔹 **New Order Received** 🔹\n\n`;
-            message += `👤 Name: ${userName}\n`;
-            message += `📱 Fake Number: ${fakeOption}\n`;
-            message += `📲 Service: ${socialMediaService}\n`;
-            message += `🔢 Quantity: ${quantity}\n`;
-
-            // Encode message for URL
-            message = encodeURIComponent(message);
-
-            // WhatsApp link
-            const whatsappLink = `https://wa.me/03058483535?text=${message}`;
-            
-            // Open WhatsApp with pre-filled message
-            window.open(whatsappLink, "_blank");
-            
-            // Allow the user to manually upload the screenshot
-            alert("Please manually upload the screenshot on WhatsApp after sending the message.");
+        if (selectedSubService && quantity) {
+            const pricePerUnit = servicePrices[selectedSubService] / 1000;
+            total += pricePerUnit * quantity;
         }
 
-        // Initialize by showing the first section
-        showSection(1);
-    </script>
+        const receiptContent = `
+            Name: ${userName}
+            Fake Number: ${selectedFakeOption}
+            Service: ${selectedSubService}
+            Quantity: ${quantity}
+            Total Price: ${total.toFixed(2)} PKR
+        `;
+        document.getElementById('receiptContent').innerText = receiptContent;
+        document.getElementById('subServices').classList.add('hidden');
+        document.getElementById('receipt').classList.remove('hidden');
+    }
+
+    function submitOrder() {
+        const trxId = document.getElementById('trxId').value;
+        const senderName = document.getElementById('senderName').value;
+        const screenshot = document.getElementById('screenshotUpload').files[0];
+
+        if (!trxId || !senderName || !screenshot) {
+            alert("Please complete all fields.");
+            return;
+        }
+
+        // Construct the message
+        const message = `
+            Name: ${userName}
+            Fake Number: ${selectedFakeOption}
+            Service: ${selectedSubService}
+            Quantity: ${quantity}
+            Total Price: ${total.toFixed(2)} PKR
+            Transaction ID: ${trxId}
+            Sender Name: ${senderName}
+        `;
+
+        // Encode the message for URL
+        const encodedMessage = encodeURIComponent(message);
+
+        // Construct the WhatsApp URL
+        const whatsappUrl = `https://wa.me/03058483535?text=${encodedMessage}`;
+
+        // Open the WhatsApp link
+        window.open(whatsappUrl, '_blank');
+
+        alert("Your order has been successfully submitted!");
+    }
+</script>
 
 </body>
 </html>
